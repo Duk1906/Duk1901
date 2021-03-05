@@ -4,6 +4,7 @@
 Name：黎相鹏
 Phone：15521501175
 WeChat：Duk1901
+Email: 983316419@qq.com
 ```
 
 ##### 学历
