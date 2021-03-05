@@ -202,8 +202,14 @@
     	    # pr进程里是死循环，无法等待其结束，只能强行终止:
     	    pr.terminate()
 
-##### 13. 协程/gevent 为何比线程/threading还快 
-     协程，更小的线程，切换自如，只需切换CPU上下文；线程切换还需要恢复缓存等内容
+##### 13. GIL/全局解析锁
+    在 CPython 解释器中执行的每一个 Python 线程，都会先锁住自己，以阻止别的线程执行
+
+![GIL工作流程示意图](http://c.biancheng.net/uploads/allimg/190830/2-1ZS012105L23.gif)
+
+    CPython 中还有另一个机制，叫做间隔式检查（check_interval），意思是 CPython 解释器会去轮询检查线程 GIL 的锁住情况，每隔一段时间，Python 解释器就会强制当前线程去释放 GIL，这样别的线程才能有执行的机会
+
+
 
 ##### 14. fliter(), map()
       def func(x):
