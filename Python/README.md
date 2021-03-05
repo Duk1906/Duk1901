@@ -43,8 +43,8 @@
                 key：b = a的时候，b指向了和a一样的内容为'hello'的内存地址2618086222624；字符串是不可变对象，
     		执行a += 'lxp'时，系统分配了新的内存块2618088668592去存储新生成的字符串'hellolxp',并将变量a指向这个新分配的地址
     
-          eg3： a = 'hello'   
-                b = 'hello'   
+              eg3： a = 'hello'   
+                    b = 'hello'   
     	        print(id(a), id(b))    //  2298988751648 2298988751648 
     
     	        c = []  
@@ -52,8 +52,8 @@
     	        print(id(c), id(d))   //  1843333085320 1843333083208
                  key:系统会对小对象进行缓存，接下来的引用会指向同一内存，如 'hello', 1,1.11; 但是 [],{},(1,),'hello,world'*2 就不会。
 
-           eg4: def test(lst=[]):    
-                    lst.append(1)
+              eg4: def test(lst=[]):    
+                        lst.append(1)
     		    print(id(lst))   // 1688817744008
     		    return lst
     	        x = test()
@@ -242,14 +242,14 @@
 	
 	 只要不满足其中任意一个要求，就不符合同源策略，就会出现“跨域”
 
-##### 19. 简述cookie和session的区别
+##### 19. cookie & session
 
 	1. session 在服务器端，cookie 在客户端（浏览器）	
 	2. session 的运行依赖 session id，而 session id 是存在 cookie 中的，也就是说，如果浏览器禁用了 cookie ，同时 session 也会失效，存储Session时，键与Cookie中的sessionid相同，值是开发人员设置的键值对信息，进行了base64编码，过期时间由开发人员设置
 	3. cookie安全性比session差，像偷换cookie的情况常有。但session存在服务器端，也是压力，可以学习一下token
 [cookie_session_token](https://www.cnblogs.com/moyand/p/9047978.html)
 	
-##### 20. python中什么元素为假
+##### 20. python中假元素（if判断为false）
     0，空字符串，空列表、空字典、空元组、None, False
 ##### 21. python异常
 	IOError：输入输出异常
@@ -267,7 +267,7 @@
 	SyntaxError:Python代码逻辑语法出错，不能执行
 	
 	NameError:使用一个还未赋予对象的变量
-##### 22.列出几种魔法方法并简要介绍用途
+##### 22.魔法方法&用途
 
 	__init__:对象初始化方法
 	
