@@ -30,5 +30,13 @@ Linux    /etc/hosts
 52.192.72.89   github.com
 
 5. 保存，重试，ok了
+
+
+后续------------------------------------------
+文档传上去，发现图片打不开，找到图片位置，查看图片地址，同样方法处理下raw.githubusercontent.com，问题解决
+185.199.110.133  raw.githubusercontent.com
+
+
+
 ```
 
