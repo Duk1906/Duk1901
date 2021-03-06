@@ -23,7 +23,7 @@
          1. 随机整数 random.randint(a,b)
          2. 随机小数 numpy.random.randn(5)
       6. copy 下面 第8点
-           
+
 ##### 2. is 和 == 的区别
       is 是检查两个对象是否指向同一块内存空间，而 == 是检查他们的值是否相等。
 
@@ -51,7 +51,7 @@
     	        d = []
     	        print(id(c), id(d))   //  1843333085320 1843333083208
                  key:系统会对小对象进行缓存，接下来的引用会指向同一内存，如 'hello', 1,1.11; 但是 [],{},(1,),'hello,world'*2 就不会。
-
+    
               eg4: def test(lst=[]):    
                         lst.append(1)
     		    print(id(lst))   // 1688817744008
@@ -62,16 +62,42 @@
     	        print(id(x), id(y), x, y)  // 1688817744008 1688817741896 [1] [1, 2, 1]
                 z = test()
         	print(id(x), id(y), id(z), x, y, z)  // 1688817744008 1688817741896 1688817744008 [1, 1] [1, 2, 1] [1, 1]
-			
-##### 4. join vs +
+
+##### 4. python参数传递
+    def self_add(z):
+        z += z
+        print('里面的：', id(z), z)
+    
+    x = 10
+    self_add(x)                   //   里面的： 1427862768 20 ，里面的x是新建的局部变量
+    print('外面的：', id(x), x)    //   外面的： 1427862448 10
+    
+    y = [1] 
+    self_add(y)                   //   里面的： 2123441735176 [1, 1]
+    print('外面的：', id(y), y)    //   外面的： 2123441735176 [1, 1]
+
+##### 5. 深浅copy  
+    import copy
+    浅：copy.copy()
+    深：copy.deepcopy()
+    1. 对于不可变类型的赋值、浅拷贝、深拷贝在内存当中用的都是同一块地址
+    2. 对于浅拷贝，字典、列表等可变类型，它们只拷贝第一层地址
+    3. 对于深拷贝，字典、列表等可变类型，它里面嵌套多少层，就会拷贝多少层出来，但是最底层的不可变类型地址不变
+    4. 应用：用deepcopy拷贝数组的值就不用共享内存了
+        a = [1]
+        b = copy.deepcopy(a)
+        print(id(a), id(b))   // 2766068833544 2766068822216
+
+
+##### 6. join vs +
       ''.join(strlist) --> 快
       for str in strlist:
           result += str  --> 慢，且浪费空间，美加一次分配一块新内存
-##### 5. _ _new_ _(cls)和 _ _init_ _(self)
+##### 7. _ _new_ _(cls)和 _ _init_ _(self)
       __new__：新建类，以类为首参，会返回一个类实例，伴随__init__
       __init__:初始化类，以类实例为首参，无返回
 
-##### 6. with 上下文管理,帮忙关闭文件==
+##### 8. with 上下文管理,帮忙关闭文件==
     with open('output', 'w') as f:     //output没有会自动新建
         f.write('hi,lxp')
     上面代码等价于：
@@ -81,7 +107,7 @@
     finally:
         f.close()
 
-##### 7. 异常捕捉_断言
+##### 9. 异常捕捉_断言
     无论异常是否发生，在程序结束前，finally中的语句都会被执行。
     try:
         a = 1/0
@@ -96,19 +122,7 @@
        2. 如果是True则继续执行
        3. 如果是False则中断程序，调用默认的异常处理器，同时输出assert语句逗号后面的提示信息
 
-##### 8. 深浅copy  
-    import copy
-    浅：copy.copy()
-    深：copy.deepcopy()
-    1. 对于不可变类型的赋值、浅拷贝、深拷贝在内存当中用的都是同一块地址
-    2. 对于浅拷贝，字典、列表等可变类型，它们只拷贝第一层地址
-    3. 对于深拷贝，字典、列表等可变类型，它里面嵌套多少层，就会拷贝多少层出来，但是最底层的不可变类型地址不变
-    4. 应用：用deepcopy拷贝数组的值就不用共享内存了
-        a = [1]
-        b = copy.deepcopy(a)
-        print(id(a), id(b))   // 2766068833544 2766068822216
-
-##### 9. 设计模式
+##### 10. 设计模式
     1. 单例模式
        某个类只有一个实例存在，适用于 系统的配置文件等
        思路：设置一个类属性，调用类的__new__方法时先判断为空才实例化类，确保类只有一个实例
@@ -132,12 +146,12 @@
        按需生产对象，一类多实例
    [设计模式/更多](https://www.cnblogs.com/tangkaishou/p/9246353.html)
 
-##### 10. 内存管理 
+##### 11. 内存管理 
     1. 引用计数：+-
     2. 分代回收：0、1、2
     3. 孤立引用环: 遍历每个变量，谁引用了我，谁减1，最后为0的回收
 
-##### 11. 多进程 + 多线程 （windows）
+##### 12. 多进程 + 多线程 （windows）
      1   from multiprocessing import Process，Pool
     	
          p = Process(target=function, args=())
@@ -151,7 +165,7 @@
     	     
      2   import threading
          threadLock = threading.Lock()
-
+    
     * 进程：
      1. 操作系统进行资源分配和调度的基本单位，多个进程之间相互独立
      2. 稳定性好，如果一个进程崩溃，不影响其他进程，但是进程消耗资源大，开启的进程数量有限制
@@ -171,7 +185,7 @@
      2. CPU密集的用多进程，因为假如IO操作少，用多线程的话，因为线程共享一个全局解释器锁，当前运行的线程会霸占GIL，其他线程没有GIL，就不能充分利用多核CPU的优势
  [学习参考](http://www.cnblogs.com/yuanchenqi/articles/6755717.html)
 
-##### 12. 进程通信 Queue、Pipes
+##### 13. 进程通信 Queue、Pipes
             from multiprocessing import Process, Queue
             import os, time, random
     	
@@ -202,7 +216,7 @@
     	    # pr进程里是死循环，无法等待其结束，只能强行终止:
     	    pr.terminate()
 
-##### 13. GIL/全局解析锁
+##### 14. GIL/全局解析锁
     在 CPython 解释器中执行的每一个 Python 线程，都会先锁住自己，以阻止别的线程执行
 
 ![GIL工作流程示意图](http://c.biancheng.net/uploads/allimg/190830/2-1ZS012105L23.gif)
@@ -211,7 +225,7 @@
 
 
 
-##### 14. fliter(), map()
+##### 15. fliter(), map()
       def func(x):
           return x % 20 == 0
       lst = filter(func, range(100))    // filter 的首参func返回的是筛选条件  
@@ -222,19 +236,19 @@
       lst = map(func, range(10))   // map 的func可以返回操作后的x，也可以是x的操作
       print(list(lst), type(lst))  // [-20, -19, -18, -17, -16, -15, -14, -13, -12, -11] <class 'map'>
 
-##### 15. 匿名函数lambda
+##### 16. 匿名函数lambda
       sum = lambda a,b:a+b
       print(sum(3, 5))
 
-##### 16. Python搜索变量的顺序
+##### 17. Python搜索变量的顺序
       本地作用域（Local）→当前作用域被嵌入的本地作用域（Enclosing locals）
       →全局/模块作用域（Global）→内置作用域（Built-in）
 
-##### 17. *args 与 **kwargs
+##### 18. *args 与 **kwargs
       *args : []
       **kwargs: key-value
 
-##### 18.同源策略
+##### 19.同源策略
 
 	 同源策略需要同时满足以下三点要求： 
 	
@@ -248,16 +262,16 @@
 	
 	 只要不满足其中任意一个要求，就不符合同源策略，就会出现“跨域”
 
-##### 19. cookie & session
+##### 20. cookie & session
 
 	1. session 在服务器端，cookie 在客户端（浏览器）	
 	2. session 的运行依赖 session id，而 session id 是存在 cookie 中的，也就是说，如果浏览器禁用了 cookie ，同时 session 也会失效，存储Session时，键与Cookie中的sessionid相同，值是开发人员设置的键值对信息，进行了base64编码，过期时间由开发人员设置
 	3. cookie安全性比session差，像偷换cookie的情况常有。但session存在服务器端，也是压力，可以学习一下token
 [cookie_session_token](https://www.cnblogs.com/moyand/p/9047978.html)
 	
-##### 20. python中假元素（if判断为false）
+##### 21. python中假元素（if判断为false）
     0，空字符串，空列表、空字典、空元组、None, False
-##### 21. python异常
+##### 22. python异常
 	IOError：输入输出异常
 	
 	AttributeError：试图访问一个对象没有的属性
@@ -273,7 +287,7 @@
 	SyntaxError:Python代码逻辑语法出错，不能执行
 	
 	NameError:使用一个还未赋予对象的变量
-##### 22.魔法方法&用途
+##### 23.魔法方法&用途
 
 	__init__:对象初始化方法
 	
@@ -283,11 +297,11 @@
 	
 	__del__:删除对象执行的方法
 
-##### 23. sys.argv
+##### 24. sys.argv
     >python 1.py 22 33
     >print(sys.argv)   // ['1.py', 22, 33] 
 
-##### 24. 去除字符串空格
+##### 25. 去除字符串空格
      方法1:   string = ' fg fxd '
     	   lst = string.split(' ')
     	   res = ''.join(lst)
@@ -296,7 +310,7 @@
      方法2:   stri = string.replace(' ', '')   // 首选推荐
               print(stri)
 
-##### 25.举例sort和sorted对列表排序，list=[0,-1,3,-10,5,9]
+##### 26.举例sort和sorted对列表排序，list=[0,-1,3,-10,5,9]
      lst = [0, -1, 3, -10, 5, 9]
      lst.sort()
      res = sorted(lst, reverse=False)  // sorted()会生成新list
@@ -325,14 +339,14 @@
             foo.sort(key=lambda x: len(x), reverse=False)
             print(foo)  // ['1', '12', '14', '1234']
 
-##### 26. dict and json字符串
+##### 27. dict and json字符串
         dic = {'xp': 21, 'aq': 21}
         jsn = json.dumps(dic)
         print(jsn, type(jsn))    // {"aq": 21, "xp": 21} <class 'str'>
         jsn_dic = json.loads(jsn)
         print(jsn_dic, type(jsn_dic))   // {'aq': 21, 'xp': 21} <class 'dict'>
 
-##### 27. 类型转换
+##### 28. 类型转换
     a = int(1.11)
     print(a)    // 1
     b = float('1.11')
@@ -341,29 +355,17 @@
     print(c)    // 报错
 
 
-##### 28. 乐观锁和悲观锁
+##### 29. 乐观锁和悲观锁
     乐观锁：乐观态度不上锁
     悲观锁：悲观怕取数据时出错(别人会修改之类的)，要上锁
 
-##### 29. python参数传递
-    def self_add(z):
-        z += z
-        print('里面的：', id(z), z)
-    
-    x = 10
-    self_add(x)                   //   里面的： 1427862768 20 ，里面的x是新建的局部变量
-    print('外面的：', id(x), x)    //   外面的： 1427862448 10
-    
-    y = [1] 
-    self_add(y)                   //   里面的： 2123441735176 [1, 1]
-    print('外面的：', id(y), y)    //   外面的： 2123441735176 [1, 1]
 
 ##### 30. HTTP请求中get和post区别
 
     1. GET请求是通过URL直接请求数据，数据信息可以在URL中直接看到，比如浏览器访问；而POST请求是放在请求头中的，我们是无法直接看到的；
-
+    
     2. GET提交有数据大小的限制，一般是不超过1024个字节，而这种说法也不完全准确，HTTP协议并没有设定URL字节长度的上限，而是浏览器做了些处理，所以长度依据浏览器的不同有所不同；POST请求在HTTP协议中也没有做说明，一般来说是没有设置限制的，但是实际上浏览器也有默认值。总体来说，少量的数据使用GET，大量的数据使用POST。
-
+    
     3. GET请求因为数据参数是暴露在URL中的，所以安全性比较低，比如密码是不能暴露的，就不能使用GET请求；POST请求中，请求参数信息是放在请求头的，所以安全性较高，可以使用。在实际中，涉及到登录操作的时候，尽量使用HTTPS请求，安全性更好。
 
 ##### 31. 新旧式类   -20190304
