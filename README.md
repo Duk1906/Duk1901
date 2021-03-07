@@ -24,11 +24,11 @@ Email: 983316419@qq.com
 
 2019.07 ~ 2020.06           中间件管理                 角色：owner
 1. 基于 consul 组件，完成500+台主机成千DB实例相关配置管理改造 
-2. 基于 systemd、supervisor、crontab，实现 nginx、consul、zk 服务的开机自启动 
-3. 基于 keepalived，实现 nginx 故障切换方案 
-4. 利用 iptables 模拟网络故障，对 consul、zk 架构进行高可用改造 
-5. 完成 consul ACL 权限控制安全改造 
-6. 基于 python 完成 consul kv 格式校验脚本开发 
+2. 完成 consul ACL 权限控制安全改造 
+3. 基于 python 完成 consul kv 格式校验脚本开发
+4. 基于 systemd、supervisor、crontab，实现 nginx、consul、zk 服务的开机自启动 
+5. 基于 keepalived，实现 nginx 故障切换方案 
+6. 利用 iptables 模拟网络故障，对 consul、zk 架构进行高可用改造  
 7. 持续迭代优化，分析中间件常见报错，记录应急文档，定时给一线运维同事同步信息 
 
 2019.10 ~ 2020.03           DB国产化项目               角色：对内负责人
