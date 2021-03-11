@@ -42,7 +42,7 @@ $ stat .cron_file
   File: ‘.cron_file’
   Size: 297             Blocks: 8          IO Block: 4096   regular file
 Device: fd09h/64777d    Inode: 17233945    Links: 1
-Access: (0750/-rwxr-x---)  Uid: ( 6001/postgres)   Gid: ( 6001/postgres)
+Access: (0750/-rwxr-x---)  Uid: ( 6001/lxp)   Gid: ( 6001/lxp)
 Access: 2021-01-13 15:01:19.464905383 +0800
 Modify: 2021-01-13 15:01:19.450905242 +0800
 Change: 2021-01-13 15:01:27.334987885 +0800
@@ -92,7 +92,7 @@ awk '{print $1,$4}' test.txt                    # 每行按空格或TAB分割，
 awk '{printf "%-15s %-10s\n", $1,$4}' test.txt  # 格式化输出
 awk -F : '{printf "%-15s %-10s\n", $1,$3}' test.txt    等同于   awk 'BEGIN{FS=":"} {printf "%-15s %-10s\n", $1,$3}' test.txt
 
-sed -i "s#pacloud#paic#g" test.txt         # 换
+sed -i "s#123#abc#g" test.txt         # 换
 sed -i "/date {/a\    `date`"  test.txt    # 加
 sed -i "/2021/d"  test.txt                 # 删
 sed '/^$/d' test.txt                       # 查阅非空行内容，如果加了-i，会删除test.txt的空行
